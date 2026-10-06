@@ -27,7 +27,7 @@ export class Project {
             return this.deadline;
         }
 
-        setRemoveMember(memberId: string): void {
+        deleteMember(memberId: string): void {
             const remaining: string[] = [];
             for (const id of this.memberIds) {
                 if (id !== memberId) {
@@ -42,12 +42,12 @@ export class Project {
             }
             this.name = newName;
         }
-        setHaveMember(memberId: string): boolean {
+        haveMember(memberId: string): boolean {
             return this.memberIds.includes(memberId);
         }
         
-        setAddMember(memberId: string): void {
-            if (!this.setHaveMember(memberId)) {
+        addMember(memberId: string): void {
+            if (!this.haveMember(memberId)) {
                 this.memberIds.push(memberId);
             }
         }
