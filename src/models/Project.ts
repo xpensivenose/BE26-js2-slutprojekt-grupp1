@@ -17,39 +17,19 @@ export class Project {
         getName(){
             return this.name;
         }
-        getMemberCount(): number {
-            return this.memberIds.length;
-        }
-        getDescription() {
-            return this.description;
-        }
-        getDeadline() {
-            return this.deadline;
+        getDescription(): string {
+        return this.description;
         }
 
-        deleteMember(memberId: string): void {
-            const remaining: string[] = [];
-            for (const id of this.memberIds) {
-                if (id !== memberId) {
-                    remaining.push(id);
-                }
-            }
-            this.memberIds = remaining;
+        getDeadline(): string {
+        return this.deadline;
         }
-        setName(newName: string): void {
-            if (newName.trim() === "") {
-                throw new Error("Project name cannot be empty");
-            }
-            this.name = newName;
+
+        getMemberIds(): string[] {
+        return this.memberIds;
         }
-        haveMember(memberId: string): boolean {
-            return this.memberIds.includes(memberId);
+
+        getMemberCount(): number {
+        return this.memberIds.length;
         }
-        
-        addMember(memberId: string): void {
-            if (!this.haveMember(memberId)) {
-                this.memberIds.push(memberId);
-            }
-        }
-       
 }
