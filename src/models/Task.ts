@@ -1,18 +1,17 @@
-import type { Category, Priority, TaskData, TaskStatus } from "../types/types";
+import type { TaskData, Category, Priority, TaskStatus } from "../types/types";
 
 export class Task {
-	public readonly id: string;
-	public readonly created: string;
-	public readonly projectId: string;
-
-	public title: string;
-	public description: string;
-	public category: Category;
-	public status: TaskStatus;
-	public priority: Priority;
-	public deadline: string;
-	public completed?: string;
-	public memberId?: string;
+	private readonly id: string;
+	private readonly created: string;
+	private readonly projectId: string;
+	private title: string;
+	private description: string;
+	private category: Category;
+	private status: TaskStatus;
+	private priority: Priority;
+	private deadline: string;
+	private completed?: string;
+	private memberId?: string;
 
 	constructor(data: TaskData) {
 		this.id = data.id;
@@ -26,5 +25,17 @@ export class Task {
 		this.deadline = data.deadline;
 		this.completed = data.completed;
 		this.memberId = data.memberId;
+	}
+
+	getId(): string {
+		return this.id;
+	}
+
+	getProjectId(): string {
+		return this.projectId;
+	}
+
+	getTitle(): string {
+		return this.title;
 	}
 }
