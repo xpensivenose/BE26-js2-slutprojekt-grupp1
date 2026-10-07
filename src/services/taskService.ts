@@ -1,47 +1,30 @@
 import { BASE_URL } from "../constants";
+import { request } from "./api";
 import { Task } from "../models/Task";
 import type { TaskData } from "../types/types";
 
 export async function getTasksByProjectId(projectId: string): Promise<Task[]> {
 	const url = `${BASE_URL}/tasks.json`;
 
-	const options = {
-		method: "GET",
-		headers: {
-			accept: "application/json",
-		},
-	};
+	// Hämtar alla tasks från Firebase
+	const data = await request<Record<string, TaskData> | null>(url);
 
-	try {
-		const response = await fetch(url, options);
+	// Firebase returnerar null om det inte finns några tasks
+	if (!data) return [];
 
-		// Hantera HTTP-fel från Firebase
-		if (!response.ok) {
-			console.error("Firebase-fel:", response.status);
-			throw new Error("Kunde inte hämta tasks.");
-		}
+	// Gör om Firebase-datan till Task-objekt
+	// Firebase-ID:t ligger som key och läggs därför till som id
+	const tasks: Task[] = Object.entries(data).map(([taskId, taskData]) => {
+		return new Task({
+			...taskData,
+			id: taskId,
+		});
+	});
 
-		const data = await response.json();
+	// Filtrerar bort tasks som tillhör andra projekt
+	const projectTasks = tasks.filter((task) => {
+		return task.getProjectId() === projectId;
+	});
 
-		// Inga tasks finns i databasen
-		if (!data) return [];
-
-		const tasks: Task[] = [];
-
-		for (const [taskId, value] of Object.entries(data)) {
-			tasks.push(new Task({ ...(value as TaskData), id: taskId }));
-		}
-
-		// console.log(tasks);
-
-		// Returnera endast tasks som tillhör det valda projektet
-		const projectTasks = tasks.filter((task) => task.projectId === projectId);
-		// console.log(projectTasks);
-
-		return projectTasks;
-	} catch (error) {
-		// Hantera nätverks-/fetch-fel och logga felet för felsökning
-		console.error("Fel vid hämtning av tasks:", error);
-		throw error;
-	}
+	return projectTasks;
 }
