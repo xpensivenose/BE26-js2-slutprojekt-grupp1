@@ -1,83 +1,105 @@
 <!doctype html>
 <html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slutprojekt - Grupp 1</title>
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Slutprojekt - Grupp 1</title>
-</head>
+  <body data-page="overview">
+    <header class="bg-white border-bottom py-3">
+      <div class="container">
+        <span class="fs-4">Scrum Board</span>
+      </div>
+    </header>
 
-<body data-page="overview">
-	<header class="bg-white border-bottom py-3">
-		<div class="container">
-			<span class="fs-4">Scrum Board</span>
-		</div>
-	</header>
+    <main class="container py-5">
+      <div class="row g-4">
+        <!-- Projekt -->
+        <section class="col-lg-8">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Projekt</h2>
+            <button class="btn btn-primary">+ Nytt projekt</button>
+          </div>
 
-	<main class="container py-5">
-		<div class="row g-4">
+          <div id="project-list" class="row g-3">
+            <!-- Dummykort, ersätts av JS -->
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="h5 fw-bold">Projektnamn</h3>
+                  <p class="small text-muted">Kort beskrivning av projektet.</p>
+                  <div class="d-flex gap-2 flex-wrap">
+                    <span class="badge bg-body-secondary text-body fw-normal"
+                      >3 medlemmar</span
+                    >
+                    <span class="badge bg-body-secondary text-body fw-normal"
+                      >2 pågående</span
+                    >
+                    <span class="badge bg-body-secondary text-body fw-normal"
+                      >2026-11-20</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-			<!-- Projekt -->
-			<section class="col-lg-8">
-				<div class="d-flex justify-content-between align-items-center mb-3">
-					<h2 class="h4 mb-0">Projekt</h2>
-					<button class="btn btn-primary">+ Nytt projekt</button>
-				</div>
+        <!-- Medlemmar -->
+        <section class="col-lg-4">
+          <div class="card">
+            <div class="card-body">
+              <div
+                class="d-flex justify-content-between align-items-center mb-2"
+              >
+                <h2 class="h4 mb-0">Medlemmar</h2>
+                <button class="btn btn-outline-dark">+ Ny medlem</button>
+              </div>
 
-				<div id="project-list" class="row g-3">
-					<!-- Dummykort, ersätts av JS -->
-					<div class="col-sm-6">
-						<div class="card">
-							<div class="card-body">
-								<h3 class="h5 fw-bold">Projektnamn</h3>
-								<p class="small text-muted">Kort beskrivning av projektet.</p>
-								<div class="d-flex gap-2 flex-wrap">
-									<span class="badge bg-body-secondary text-body fw-normal">3 medlemmar</span>
-									<span class="badge bg-body-secondary text-body fw-normal">2 pågående</span>
-									<span class="badge bg-body-secondary text-body fw-normal">2026-11-20</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+              <ul id="member-list" class="list-group list-group-flush">
+                <!-- Dummyrad <li>, ersätts av JS -->
+                <li class="list-group-item d-flex gap-3 px-0">
+                  <div
+                    class="rounded-circle bg-primary text-white small fw-medium d-flex align-items-center justify-content-center"
+                    style="width: 34px; height: 34px"
+                  >
+                    AS
+                  </div>
+                  <div>
+                    <span class="fw-bold">Medlemsnamn</span>
+                    <span class="badge bg-body-secondary text-body fw-normal"
+                      >Frontend</span
+                    >
+                    <div class="small text-muted">
+                      Projektnamn · 1 pågående uppgifter
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item d-flex gap-3 px-0">
+                  <div
+                    class="rounded-circle bg-primary text-white small fw-medium d-flex align-items-center justify-content-center"
+                    style="width: 34px; height: 34px"
+                  >
+                    AS
+                  </div>
+                  <div>
+                    <span class="fw-bold">Medlemsnamn</span>
+                    <span class="badge bg-body-secondary text-body fw-normal"
+                      >Frontend</span
+                    >
+                    <div class="small text-muted">
+                      Projektnamn · 1 pågående uppgifter
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
 
-			<!-- Medlemmar -->
-			<section class="col-lg-4">
-				<div class="card">
-					<div class="card-body">
-						<div class="d-flex justify-content-between align-items-center mb-2">
-							<h2 class="h4 mb-0">Medlemmar</h2>
-							<button class="btn btn-outline-dark">+ Ny medlem</button>
-						</div>
-
-						<ul id="member-list" class="list-group list-group-flush">
-							<!-- Dummyrad <li>, ersätts av JS -->
-							<li class="list-group-item d-flex gap-3 px-0">
-								<div class="rounded-circle bg-primary text-white small fw-medium d-flex align-items-center justify-content-center" style="width: 34px; height: 34px">AS</div>
-								<div>
-									<span class="fw-bold">Medlemsnamn</span>
-									<span class="badge bg-body-secondary text-body fw-normal">Frontend</span>
-									<div class="small text-muted">Projektnamn · 1 pågående uppgifter</div>
-								</div>
-							</li>
-							<li class="list-group-item d-flex gap-3 px-0">
-								<div class="rounded-circle bg-primary text-white small fw-medium d-flex align-items-center justify-content-center" style="width: 34px; height: 34px">AS</div>
-								<div>
-									<span class="fw-bold">Medlemsnamn</span>
-									<span class="badge bg-body-secondary text-body fw-normal">Frontend</span>
-									<div class="small text-muted">Projektnamn · 1 pågående uppgifter</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</section>
-
-		</div>
-	</main>
-
-	<script type="module" src="/src/main.ts"></script>
-</body>
-
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
