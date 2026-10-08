@@ -31,3 +31,11 @@ export async function addProject(name: string, description: string, deadline: st
         return new Project(result.name, { name, description, deadline, memberIds });
     }
 
+export async function getProjectId(id: string): Promise<Project | null> {
+    const url = `${BASE_URL}projects/${id}.json`;
+
+    const data = await request<ProjectData | null>(url);
+    if (!data) return null;
+
+    return new Project(id, data);
+}
