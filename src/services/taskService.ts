@@ -3,7 +3,7 @@ import { request } from "./api";
 import { Task } from "../models/Task";
 import type { TaskData } from "../types/types";
 
-export async function getTasksByProjectId(projectId: string): Promise<Task[]> {
+export async function getTasksByProject(projectId: string): Promise<Task[]> {
 	const url = `${BASE_URL}/tasks.json`;
 
 	// Hämtar alla tasks från Firebase
@@ -13,12 +13,9 @@ export async function getTasksByProjectId(projectId: string): Promise<Task[]> {
 	if (!data) return [];
 
 	// Gör om Firebase-datan till Task-objekt
-	// Firebase-ID:t ligger som key och läggs därför till som id
+	// Firebase-ID:t är nyckeln och skickas som eget argument till Task
 	const tasks: Task[] = Object.entries(data).map(([taskId, taskData]) => {
-		return new Task({
-			...taskData,
-			id: taskId,
-		});
+		return new Task(taskId, taskData);
 	});
 
 	// Filtrerar bort tasks som tillhör andra projekt
