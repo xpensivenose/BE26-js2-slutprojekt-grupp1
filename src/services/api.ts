@@ -1,5 +1,6 @@
 // Hjälpfunktion för alla API-anrop
 // Tar emot URL och options och returnerar svaret som JSON
+
 export async function request<Type>(url: string, options?: RequestInit): Promise<Type> {
 	try {
 		const response = await fetch(url, options);
