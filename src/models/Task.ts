@@ -13,8 +13,8 @@ export class Task {
 	private completed?: string;
 	private memberId?: string;
 
-	constructor(data: TaskData) {
-		this.id = data.id;
+	constructor(id: string, data: TaskData) {
+		this.id = id;
 		this.created = data.created;
 		this.projectId = data.projectId;
 		this.title = data.title;
