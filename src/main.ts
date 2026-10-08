@@ -1,10 +1,9 @@
-import { renderProjectList } from "./features/projects/projectList";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import "bootstrap";
 
-// import { renderProjectList } from "./features/projects/projectList";
-// import { renderProjectSummary } from "./features/projects/projectSummary";
+import { renderProjectList } from "./features/projects/projectList";
+import { renderProjectSummary } from "./features/projects/projectSummary";
 // import { renderMemberList } from "./features/members/memberList";
 // import { renderTaskBoard } from "./features/tasks/taskBoard";
 
@@ -32,7 +31,7 @@ function initApp(): void {
 		}
         console.log("Projekt-id:", projectId);
 		// Skickar id vidare så båda vyerna hämtar rätt projekt
-		// renderProjectSummary(projectId);
+		renderProjectSummary(projectId);
 		// renderTaskBoard(projectId);
 	}
 }
