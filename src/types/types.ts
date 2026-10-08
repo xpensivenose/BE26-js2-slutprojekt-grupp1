@@ -8,3 +8,16 @@ export interface ProjectData {
     deadline: string;
     memberIds?: string[];
 }
+
+export interface TaskData {
+	created: string;
+	projectId: string;
+	title: string;
+	description: string;
+	category: Category;
+	status: TaskStatus;
+	priority: Priority;
+	deadline: string;
+	completed?: string;
+	memberId?: string;
+}
