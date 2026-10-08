@@ -1,9 +1,8 @@
 import { Project } from "../../models/Project";
 
-function createProjectCard(project: Project): HTMLElement {
+export function createProjectCard(project: Project): HTMLElement {
     const mainDiv = document.createElement("div");
-    const card = document.createElement("div");
-    const cardsDic =`${}`
+    /* const card = document.createElement("div"); */
     const cardBody = document.createElement("div");
     const title = document.createElement("h3");
     const description = document.createElement("p");
@@ -13,7 +12,7 @@ function createProjectCard(project: Project): HTMLElement {
     const deadline = document.createElement("span");
 
     mainDiv.className = "col-sm-6";
-    card.className = "card";
+    /* card.className = "card"; */
     cardBody.className = "card-body";
     title.className = "h5 fw-bold";
     description.className = "small text-muted";
@@ -28,6 +27,11 @@ function createProjectCard(project: Project): HTMLElement {
     ongoing.textContent = "0 pågående";
     deadline.textContent = project.getDeadline();
 
+    // Id:t följer kommer med a taggen
+    const card = document.createElement("a");
+    card.className = "fakeCard";
+    card.href = `project.html?id=${project.getId()}`;
+
     childDiv.appendChild(members);
     childDiv.appendChild(ongoing);
     childDiv.appendChild(deadline);
@@ -38,25 +42,6 @@ function createProjectCard(project: Project): HTMLElement {
     mainDiv.appendChild(card);
 
     return mainDiv;
-}
-
-export function renderProjectsList(projects: Project[]): void {
-    const container = document.querySelector("#project-list");
-
-    if (!container) {
-        return;
-    }
-
-    container.innerHTML = "";
-
-    if (projects.length === 0) {
-        container.textContent = "Inga projekt";
-        return;
-    }
-
-    for (const project of projects) {
-        container.appendChild(createProjectCard(project));
-    }
 }
 
 

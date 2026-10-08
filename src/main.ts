@@ -1,3 +1,4 @@
+import { renderProjectList } from "./features/projects/projectList";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import "bootstrap";
@@ -14,7 +15,7 @@ function initApp(): void {
 
 	// Index, översiktsvy
 	if (page === "index") {
-		// renderProjectList();
+		renderProjectList();
 		// renderMemberList();
 	}
 
@@ -29,7 +30,7 @@ function initApp(): void {
 			window.location.href = "index.html";
 			return;
 		}
-
+        console.log("Projekt-id:", projectId);
 		// Skickar id vidare så båda vyerna hämtar rätt projekt
 		// renderProjectSummary(projectId);
 		// renderTaskBoard(projectId);
