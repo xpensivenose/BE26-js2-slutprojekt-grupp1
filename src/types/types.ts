@@ -3,7 +3,6 @@ export type TaskStatus = "new" | "ongoing" | "done";
 export type Priority = "low" | "medium" | "high";
 
 export interface TaskData {
-	id: string;
 	created: string;
 	projectId: string;
 	title: string;
