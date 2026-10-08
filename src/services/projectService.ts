@@ -1,49 +1,32 @@
 import { BASE_URL } from "../constants";
 import { Project } from "../models/Project";
+import type { ProjectData } from "../types/types";
+import { request } from "./api";
 
-type ProjectData = {
-    name: string;
-    description: string;
-    deadline: string;
-    memberIds?: string[];
-};
 
-type ProjectsFirebase = {
-    [id: string]: ProjectData;
-};
-
-async function fetchProjects(): Promise<ProjectsFirebase | null> {
-    try {
-        const response = await fetch(`${BASE_URL}/projects.json`);
-
-        if (!response.ok) {
-            throw new Error(`Misslyckad hämtning, status ${response.status}`);
-        }
-        return await response.json();
-        
-    } catch (error) {
-        throw new Error("Kunde inte hämta projekten");
-    }
-}
-
-function makeProjectList(data: ProjectsFirebase | null): Project[] {
-    if (!data) {
-        return [];
-    }
-    const allProjects: Project[] = [];
-
-    for (const id in data) {
-        const p = data[id];
-        allProjects.push(new Project(id, p.name, p.description, p.deadline, p.memberIds ?? []));
-    }
-
-    return allProjects;
-}
+const urlProject = `${BASE_URL}/projects.json`;
 
 export async function getAllProjects(): Promise<Project[]> {
-    const data = await fetchProjects();
-    return makeProjectList(data);
+
+    // Record gör så att värdet inte blir any. Så att man inte kan koda tex "Deadline."
+    const data = await request<Record<string, ProjectData> | null>(urlProject);
+
+    if (!data) return [];
+
+    // Nya arrayen skapar projekt för varje par, Så att id:t följer med i objektet
+    // om värdet är null används en ny [], för att firebase inte sparar tomma listor
+    return Object.entries(data).map(function ([id, p]) {
+        return new Project(id, p.name, p.description, p.deadline, p.memberIds ?? []);
+    });
 }
 
+export async function addProject(input: ProjectData): Promise<Project> {
+    const result = await request<{ name: string }>(urlProject, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(input),
+    });
 
+    return new Project(result.name, input.name, input.description, input.deadline, input.memberIds ?? []);
+}
 
