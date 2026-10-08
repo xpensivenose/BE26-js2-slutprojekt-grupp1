@@ -6,8 +6,8 @@ export class Member {
   private category: Category;
   private projectIds: string[];
 
-  constructor(data: MemberData) {
-    this.id = data.id;
+  constructor(id: string, data: MemberData) {
+    this.id = id;
     this.name = data.name;
     this.category = data.category;
     this.projectIds = data.projectIds ?? [];

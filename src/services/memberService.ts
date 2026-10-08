@@ -8,13 +8,13 @@ export async function getAllMembers(): Promise<Member[]> {
 
   const data = await request<Record<string, MemberData> | null>(url);
 
-  console.log("getAllMembers data:", data);
-
   if (!data) return [];
 
-  return Object.entries(data).map(
-    ([id, member]) => new Member({ ...member, id }),
+  const members: Member[] = Object.entries(data).map(
+    ([id, memberData]) => new Member(id, memberData),
   );
+
+  return members;
 }
 
 export async function addMember(
@@ -29,7 +29,7 @@ export async function addMember(
     body: JSON.stringify({ name, category, projectIds: [] }),
   });
 
-  return new Member({ id: result.name, name, category, projectIds: [] });
+  return new Member(result.name, { name, category, projectIds: [] });
 }
 
 export async function updateMember(
