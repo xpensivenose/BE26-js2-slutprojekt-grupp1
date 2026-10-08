@@ -1,9 +1,133 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
+<html lang="sv">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Slutprojekt - Grupp 1</title>
+</head>
+
+<body data-page="project">
+	<header class="bg-white border-bottom py-3">
+		<div class="container">
+			<span class="fs-4">Scrum Board</span>
+		</div>
+	</header>
+
+	<main class="container py-5">
+		<a href="index.html" class="btn btn-outline-dark mb-4">← Översikt</a>
+
+		<!-- Projekthuvud -->
+		<section class="card mb-5">
+			<div class="card-body">
+				<h1 id="project-title" class="h4">Projektnamn</h1>
+				<p id="project-description" class="text-muted">Beskrivning av projektet · Deadline 2026-11-20</p>
+
+				<div id="project-members" class="d-flex flex-wrap gap-2">
+					<!-- Dummy, ersätts av JS -->
+					<span class="badge bg-body-secondary text-body fw-normal">Anna Svensson · Frontend · 1 pågående</span>
+					<span class="badge bg-body-secondary text-body fw-normal">Anna Svensson · Frontend · 1 pågående</span>
+					<span class="badge bg-body-secondary text-body fw-normal">Anna Svensson · Frontend · 1 pågående</span>
+				</div>
+			</div>
+		</section>
+
+		<!-- Filter, sortering, ny uppgift -->
+		<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+			<div class="d-flex flex-wrap gap-2">
+				<select id="filter-category" class="form-select w-auto">
+					<option value="">Alla kategorier</option>
+					<option value="frontend">Frontend</option>
+					<option value="backend">Backend</option>
+					<option value="ux">UX</option>
+				</select>
+				<select id="filter-member" class="form-select w-auto">
+					<option value="">Alla medlemmar</option>
+				</select>
+				<select id="sort" class="form-select w-auto">
+					<option value="deadline-asc">Deadline stigande</option>
+					<option value="deadline-desc">Deadline fallande</option>
+					<option value="title-asc">Titel A → Ö</option>
+					<option value="title-desc">Titel Ö → A</option>
+				</select>
+			</div>
+			<button class="btn btn-primary">+ Ny uppgift</button>
+		</div>
+
+		<!-- Scrumboard -->
+		<div class="row g-3">
+			<section class="col-md-4">
+				<div class="bg-body-secondary rounded p-3">
+					<h2 class="h6">Ny (<span id="count-new">1</span>)</h2>
+					<div id="column-new">
+						<!-- Dummykort, ersätts av JS -->
+						<div class="card mb-2">
+							<div class="card-body">
+								<h3 class="h6 fw-bold">Uppgiftstitel</h3>
+								<p class="small text-muted">Beskrivning av uppgiften.</p>
+								<span class="badge bg-body-secondary text-body fw-normal">Frontend</span>
+								<span class="badge bg-body-secondary text-warning">Prio: Mellan</span>
+								<div class="small text-muted">Skapad 2026-10-02</div>
+								<div class="small text-muted">Deadline 2026-10-25</div>
+								<div class="d-flex gap-2 mt-2">
+									<button class="btn btn-outline-dark btn-sm">Tilldela</button>
+									<button class="btn btn-outline-dark btn-sm">Ändra</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="col-md-4">
+				<div class="bg-body-secondary rounded p-3">
+					<h2 class="h6">Pågående (<span id="count-ongoing">1</span>)</h2>
+					<div id="column-ongoing">
+						<div class="card mb-2">
+							<div class="card-body">
+								<h3 class="h6 fw-bold">Uppgiftstitel</h3>
+								<p class="small text-muted">Beskrivning av uppgiften.</p>
+								<span class="badge bg-body-secondary text-body fw-normal">UX</span>
+								<span class="badge bg-body-secondary text-danger">Prio: Hög</span>
+								<div class="small text-muted">Skapad 2026-10-01</div>
+								<div class="small text-muted">Deadline 2026-10-14</div>
+								<div class="small text-muted">👤 Maria Karlsson</div>
+								<div class="d-flex gap-2 mt-2">
+									<button class="btn btn-outline-dark btn-sm">✓ Slutför</button>
+									<button class="btn btn-outline-dark btn-sm">Ändra</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="col-md-4">
+				<div class="bg-body-secondary rounded p-3">
+					<h2 class="h6">Slutförd (<span id="count-done">1</span>)</h2>
+					<div id="column-done">
+						<div class="card mb-2">
+							<div class="card-body">
+								<h3 class="h6 fw-bold">Uppgiftstitel</h3>
+								<p class="small text-muted">Beskrivning av uppgiften.</p>
+								<span class="badge bg-body-secondary text-body fw-normal">Backend</span>
+								<span class="badge bg-body-secondary text-success">Prio: Låg</span>
+								<div class="small text-muted">Skapad 2026-09-28 · Slutförd 2026-10-04</div>
+								<div class="small text-muted">Deadline 2026-10-05</div>
+								<div class="small text-muted">👤 Erik Lindqvist</div>
+								<div class="d-flex gap-2 mt-2">
+									<button class="btn btn-outline-dark btn-sm">Radera</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</div>
+	</main>
+
+	<script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
