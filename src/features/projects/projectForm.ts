@@ -2,13 +2,11 @@ import { addProject } from "../../services/projectService";
 import { getAllMembers } from "../../services/memberService";
 import { addProjectToList } from "./projectList";
 
-// bygger modalen för nytt projekt och kopplar den till knappen
 export async function createProjectForm(): Promise<void> {
 	const openButton = document.querySelector<HTMLButtonElement>("#new-project-button");
 
 	if (!openButton) return;
 
-	// Skapar modalen och lägger den sist i body, bootstrap sköter att den visas/göms
 	const modal = document.createElement("div");
 	modal.className = "modal fade";
 	modal.id = "newProjectModal";
