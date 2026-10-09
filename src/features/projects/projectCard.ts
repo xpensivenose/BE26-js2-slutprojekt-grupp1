@@ -23,7 +23,7 @@ export function createProjectCard(project: Project): HTMLElement {
 
     const members = document.createElement("span");
     members.className = "badge bg-body-secondary text-body fw-normal";
-    members.textContent = project.getMemberCount() + "medlemmar";
+    members.textContent = project.getMemberCount() + " medlemmar";
 
     const ongoing = document.createElement("span");
     ongoing.className = "badge bg-body-secondary text-body fw-normal";
@@ -37,9 +37,16 @@ export function createProjectCard(project: Project): HTMLElement {
     cardBody.append(title, description, childDiv);
     card.appendChild(cardBody);
     mainDiv.appendChild(card);
-
+    
+    
+    
+    mainDiv.addEventListener("click", function () {
+        window.location.href = `project.html?id=${project.getId()}`;
+    });
     return mainDiv;
 }
 
-
-
+const click = document.createElement('button')
+click.addEventListener("click", function () {
+        
+    });
