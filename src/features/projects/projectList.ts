@@ -2,10 +2,8 @@ import { createProjectCard } from "./projectCard";
 import { getAllProjects } from "../../services/projectService";
 import { Project } from "../../models/Project";
 
-// Sparar projekten här så vi kan lägga till nya utan att hämta allt igen
 let projects: Project[] = [];
 
-// Ritar ut korten från listan projects
 export function buildProjectList() {
 	const container = document.querySelector("#project-list");
 
