@@ -1,22 +1,23 @@
+import type { ProjectData } from "../types/types"; 
+
 export class Project {
-  readonly id: string;
-  name: string;
-  description: string;
-  deadline: string;
-  memberIds: string[];
+  private readonly id: string;
+  private name: string;
+  private description: string;
+  private deadline: string;
+  private memberIds: string[];
 
   constructor(
-    id: string,
-    name: string,
-    description: string,
-    deadline: string,
-    memberIds: string[] = [],
-  ) {
+    id: string, data: ProjectData) {
     this.id = id;
-    this.memberIds = memberIds;
-    this.name = name;
-    this.description = description;
-    this.deadline = deadline;
+    this.memberIds = data.memberIds ?? [];
+    this.name = data.name;
+    this.description = data.description;
+    this.deadline = data.deadline;
+  }
+
+  getId(): string {
+    return this.id;
   }
 
   getName() {
