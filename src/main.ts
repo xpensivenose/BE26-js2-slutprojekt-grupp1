@@ -1,6 +1,3 @@
-import "./style.css";
-import "bootstrap";
-
 import { renderProjectList } from "./features/projects/projectList";
 import { renderProjectSummary } from "./features/projects/projectSummary";
 import { renderMemberList } from "./features/members/memberList";
@@ -11,10 +8,10 @@ function initApp(): void {
   // index.html har "index" och project.html har "project"
   const page = document.body.dataset.page;
 
-	// Index, översiktsvy
-	if (page === "index") {
-		renderProjectList();
-		renderMemberList();
+  // Index, översiktsvy
+  if (page === "index") {
+    renderProjectList();
+    renderMemberList();
   }
 
   // Projektvy
@@ -23,16 +20,16 @@ function initApp(): void {
     // get("id") returnerar null om parametern saknas
     const projectId = new URLSearchParams(window.location.search).get("id");
 
-		// Utan id vet vi inte vilket projekt som ska visas, skicka tillbaka användaren till översikten
-		if (!projectId) {
-			window.location.href = "index.html";
-			return;
-		}
+    // Utan id vet vi inte vilket projekt som ska visas, skicka tillbaka användaren till översikten
+    if (!projectId) {
+      window.location.href = "index.html";
+      return;
+    }
 
     // Skickar id vidare så båda vyerna hämtar rätt projekt
-		renderProjectSummary(projectId);
-		renderTaskBoard(projectId);
-	}
+    renderProjectSummary(projectId);
+    renderTaskBoard(projectId);
+  }
 }
 
 // Startar app när filen laddas
