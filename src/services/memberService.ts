@@ -4,7 +4,7 @@ import { BASE_URL } from "../constants";
 import { request } from "./api";
 
 export async function getAllMembers(): Promise<Member[]> {
-  const url = `${BASE_URL}members.json`;
+  const url = `${BASE_URL}/members.json`;
 
   const data = await request<Record<string, MemberData> | null>(url);
 
@@ -21,7 +21,7 @@ export async function addMember(
   name: string,
   category: Category,
 ): Promise<Member> {
-  const url = `${BASE_URL}members.json`;
+  const url = `${BASE_URL}/members.json`;
 
   const result = await request<{ name: string }>(url, {
     method: "POST",
@@ -36,7 +36,7 @@ export async function updateMember(
   id: string,
   data: Partial<MemberData>,
 ): Promise<void> {
-  const url = `${BASE_URL}members/${id}.json`;
+  const url = `${BASE_URL}/members/${id}.json`;
 
   await request<void>(url, {
     method: "PATCH",
