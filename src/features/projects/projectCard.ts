@@ -46,4 +46,7 @@ export function createProjectCard(project: Project): HTMLElement {
     return mainDiv;
 }
 
-
+const click = document.createElement('button')
+click.addEventListener("click", function () {
+        
+    });
