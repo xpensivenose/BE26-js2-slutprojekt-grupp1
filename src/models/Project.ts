@@ -1,41 +1,40 @@
-import type { ProjectData } from "../types/types"; 
+import type { ProjectData } from "../types/types";
 
 export class Project {
-  private readonly id: string;
-  private name: string;
-  private description: string;
-  private deadline: string;
-  private memberIds: string[];
+	private readonly id: string;
+	private name: string;
+	private description: string;
+	private deadline: string;
+	private memberIds: string[];
 
-  constructor(
-    id: string, data: ProjectData) {
-    this.id = id;
-    this.memberIds = data.memberIds ?? [];
-    this.name = data.name;
-    this.description = data.description;
-    this.deadline = data.deadline;
-  }
+	constructor(id: string, data: ProjectData) {
+		this.id = id;
+		this.memberIds = data.memberIds ?? [];
+		this.name = data.name;
+		this.description = data.description;
+		this.deadline = data.deadline;
+	}
 
-  getId(): string {
-    return this.id;
-  }
+	getId(): string {
+		return this.id;
+	}
 
-  getName() {
-    return this.name;
-  }
-  getDescription(): string {
-    return this.description;
-  }
+	getName() {
+		return this.name;
+	}
+	getDescription(): string {
+		return this.description;
+	}
 
-  getDeadline(): string {
-    return this.deadline;
-  }
+	getDeadline(): string {
+		return this.deadline;
+	}
 
-  getMemberIds(): string[] {
-    return this.memberIds;
-  }
+	getMemberIds(): string[] {
+		return this.memberIds;
+	}
 
-  getMemberCount(): number {
-    return this.memberIds.length;
-  }
+	getMemberCount(): number {
+		return this.memberIds.length;
+	}
 }
