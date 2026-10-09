@@ -4,7 +4,7 @@ import "bootstrap";
 
 // import { renderProjectList } from "./features/projects/projectList";
 // import { renderProjectSummary } from "./features/projects/projectSummary";
-// import { renderMemberList } from "./features/members/memberList";
+import { renderMemberList } from "./features/members/memberList";
 // import { renderTaskBoard } from "./features/tasks/taskBoard";
 
 function initApp(): void {
@@ -15,7 +15,7 @@ function initApp(): void {
 	// Index, översiktsvy
 	if (page === "index") {
 		// renderProjectList();
-		// renderMemberList();
+		renderMemberList();
 	}
 
 	// Projektvy
