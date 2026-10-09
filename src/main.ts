@@ -2,6 +2,7 @@ import { renderProjectList } from "./features/projects/projectList";
 import { renderProjectSummary } from "./features/projects/projectSummary";
 import { renderMemberList } from "./features/members/memberList";
 import { renderTaskBoard } from "./features/tasks/taskBoard";
+import { createProjectForm } from "./features/projects/projectForm";
 
 function initApp(): void {
 	// Läser vilken sida som är öppen från <body data-page="...">
@@ -12,6 +13,7 @@ function initApp(): void {
 	if (page === "index") {
 		renderProjectList();
 		renderMemberList();
+		createProjectForm();
 	}
 
 	// Projektvy

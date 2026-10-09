@@ -1,5 +1,6 @@
 import { Project } from "../../models/Project";
 
+// Bygger ett kort för ett projekt och skickar tillbaka det, byggs ut i projectList
 export function createProjectCard(project: Project): HTMLElement {
 	const mainDiv = document.createElement("div");
 	mainDiv.className = "col-sm-6";
@@ -33,16 +34,11 @@ export function createProjectCard(project: Project): HTMLElement {
 	deadline.className = "badge bg-body-secondary text-body fw-normal";
 	deadline.textContent = project.getDeadline();
 
+	// Sätter ihop allt, badges i childDiv, sen text och badges i cardbody
 	childDiv.append(members, ongoing, deadline);
 	cardBody.append(title, description, childDiv);
 	card.appendChild(cardBody);
 	mainDiv.appendChild(card);
 
-	mainDiv.addEventListener("click", function () {
-		window.location.href = `project.html?id=${project.getId()}`;
-	});
 	return mainDiv;
 }
-
-const click = document.createElement("button");
-click.addEventListener("click", function () {});
