@@ -4,21 +4,22 @@ import { getAllMembers } from "../../services/memberService.ts"
 
 export async function createProjectSummary(project: Project,): Promise<HTMLElement>{
     const section = document.createElement("section");
-    const cardBody = document.createElement("div");
-    const title = document.createElement("h1");
-    const description = document.createElement("p");
-    const membersContainer = document.createElement("div");
-
     section.className = "card mb-5";
-    cardBody.className = "card-body";
-    title.className = "h4";
-    description.className = "text-muted";
-    membersContainer.className = "d-flex flex-wrap gap-2";
     
+    const cardBody = document.createElement("div");
+    cardBody.className = "card-body";
+
+    const title = document.createElement("h1");
+    title.className = "h4";
     title.textContent = project.getName();
 
+    const description = document.createElement("p");
+    description.className = "text-muted";
     description.textContent =`${project.getDescription()} Deadline ${project.getDeadline()}`;
-    
+
+    const membersContainer = document.createElement("div");
+    membersContainer.className = "d-flex flex-wrap gap-2";
+
     const memberIds = project.getMemberIds()
     
     if (memberIds.length === 0) {
@@ -38,9 +39,7 @@ export async function createProjectSummary(project: Project,): Promise<HTMLEleme
             membersContainer.appendChild(badge);
         }
     }
-    cardBody.appendChild(title);
-    cardBody.appendChild(description);
-    cardBody.appendChild(membersContainer);
+    cardBody.append(title, description, membersContainer);
     section.appendChild(cardBody);
     
     return section;
