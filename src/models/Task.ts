@@ -11,7 +11,7 @@ export class Task {
 	private priority: Priority;
 	private deadline: string;
 	private completed?: string;
-	private memberId?: string;
+	private assignedMemberId?: string;
 
 	constructor(id: string, data: TaskData) {
 		this.id = id;
@@ -24,11 +24,15 @@ export class Task {
 		this.priority = data.priority;
 		this.deadline = data.deadline;
 		this.completed = data.completed;
-		this.memberId = data.memberId;
+		this.assignedMemberId = data.assignedMemberId;
 	}
 
 	getId(): string {
 		return this.id;
+	}
+
+	getCreated(): string {
+		return this.created;
 	}
 
 	getProjectId(): string {
@@ -37,5 +41,33 @@ export class Task {
 
 	getTitle(): string {
 		return this.title;
+	}
+
+	getDescription(): string {
+		return this.description;
+	}
+
+	getCategory(): Category {
+		return this.category;
+	}
+
+	getStatus(): TaskStatus {
+		return this.status;
+	}
+
+	getPriority(): Priority {
+		return this.priority;
+	}
+
+	getDeadline(): string {
+		return this.deadline;
+	}
+
+	getCompleted(): string | undefined {
+		return this.completed;
+	}
+
+	getAssignedMemberId(): string | undefined {
+		return this.assignedMemberId;
 	}
 }

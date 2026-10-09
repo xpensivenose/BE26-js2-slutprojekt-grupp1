@@ -95,65 +95,36 @@
           </div>
         </section>
 
-        <section class="col-md-4">
-          <div class="bg-body-secondary rounded p-3">
-            <h2 class="h6">Pågående (<span id="count-ongoing">1</span>)</h2>
-            <div id="column-ongoing">
-              <div class="card mb-2">
-                <div class="card-body">
-                  <h3 class="h6 fw-bold">Uppgiftstitel</h3>
-                  <p class="small text-muted">Beskrivning av uppgiften.</p>
-                  <span class="badge bg-body-secondary text-body fw-normal"
-                    >UX</span
-                  >
-                  <span class="badge bg-body-secondary text-danger"
-                    >Prio: Hög</span
-                  >
-                  <div class="small text-muted">Skapad 2026-10-01</div>
-                  <div class="small text-muted">Deadline 2026-10-14</div>
-                  <div class="small text-muted">👤 Maria Karlsson</div>
-                  <div class="d-flex gap-2 mt-2">
-                    <button class="btn btn-outline-dark btn-sm">
-                      ✓ Slutför
-                    </button>
-                    <button class="btn btn-outline-dark btn-sm">Ändra</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+		<!-- Task board -->
+		<div class="row g-3">
+			<section class="col-md-4">
+				<div class="bg-body-secondary rounded p-3">
+					<h2 class="h6">Ny (<span id="count-new">1</span>)</h2>
+					<!-- Task cards are rendered dynamically via JavaScript -->
+					<div id="column-new"></div>
+				</div>
+			</section>
 
-        <section class="col-md-4">
-          <div class="bg-body-secondary rounded p-3">
-            <h2 class="h6">Slutförd (<span id="count-done">1</span>)</h2>
-            <div id="column-done">
-              <div class="card mb-2">
-                <div class="card-body">
-                  <h3 class="h6 fw-bold">Uppgiftstitel</h3>
-                  <p class="small text-muted">Beskrivning av uppgiften.</p>
-                  <span class="badge bg-body-secondary text-body fw-normal"
-                    >Backend</span
-                  >
-                  <span class="badge bg-body-secondary text-success"
-                    >Prio: Låg</span
-                  >
-                  <div class="small text-muted">
-                    Skapad 2026-09-28 · Slutförd 2026-10-04
-                  </div>
-                  <div class="small text-muted">Deadline 2026-10-05</div>
-                  <div class="small text-muted">👤 Erik Lindqvist</div>
-                  <div class="d-flex gap-2 mt-2">
-                    <button class="btn btn-outline-dark btn-sm">Radera</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+			<section class="col-md-4">
+				<div class="bg-body-secondary rounded p-3">
+					<h2 class="h6">Pågående (<span id="count-ongoing">1</span>)</h2>
+					<!-- Task cards are rendered dynamically via JavaScript -->
+					<div id="column-ongoing"></div>
+				</div>
+			</section>
 
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+			<section class="col-md-4">
+				<div class="bg-body-secondary rounded p-3">
+					<h2 class="h6">Slutförd (<span id="count-done">1</span>)</h2>
+					<!-- Task cards are rendered dynamically via JavaScript -->
+					<div id="column-done"></div>
+				</div>
+			</section>
+
+		</div>
+	</main>
+
+	<script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
