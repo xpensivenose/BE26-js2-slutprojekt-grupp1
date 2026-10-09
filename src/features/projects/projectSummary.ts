@@ -2,7 +2,6 @@ import { getProjectId } from "../../services/projectService.ts";
 import { Project } from "../../models/Project.ts";
 import { getAllMembers } from "../../services/memberService.ts";
 
-// Bygger cardet högst upp på projektsidan
 export async function createProjectSummary(project: Project): Promise<HTMLElement> {
 	const section = document.createElement("section");
 	section.className = "card mb-5";
