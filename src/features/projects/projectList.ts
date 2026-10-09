@@ -1,24 +1,23 @@
-import { createProjectCard } from "./projectCard"
+import { createProjectCard } from "./projectCard";
 import { getAllProjects } from "../../services/projectService";
 
-export async function renderProjectList(): Promise <void> {
-    const container = document.querySelector("#project-list");
-   
-    if (!container) {
-        return;
-    }
+export async function renderProjectList(): Promise<void> {
+	const container = document.querySelector("#project-list");
 
-    const projects = await getAllProjects();
+	if (!container) {
+		return;
+	}
 
-    container.innerHTML = "";
+	const projects = await getAllProjects();
 
-    if (projects.length === 0) {
-        container.textContent = "Inga projekt";
-        return;
-    }
+	container.innerHTML = "";
 
-    for (const project of projects) {
-        container.appendChild(createProjectCard(project));
-    }
+	if (projects.length === 0) {
+		container.textContent = "Inga projekt";
+		return;
+	}
+
+	for (const project of projects) {
+		container.appendChild(createProjectCard(project));
+	}
 }
-

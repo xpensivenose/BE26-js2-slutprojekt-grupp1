@@ -113,7 +113,15 @@ export function createTaskCard(task: Task): HTMLDivElement {
 		assignedMember.textContent = "Tilldelad: " + "{Förnamn Efternamn}";
 	}
 
-	cardBody.append(badgesContainer, title, description, assignedMember, created, deadline, buttonsContainer);
+	cardBody.append(
+		badgesContainer,
+		title,
+		description,
+		assignedMember,
+		created,
+		deadline,
+		buttonsContainer,
+	);
 	card.append(cardBody);
 
 	return card;
