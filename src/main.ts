@@ -5,7 +5,7 @@ import "bootstrap";
 // import { renderProjectList } from "./features/projects/projectList";
 // import { renderProjectSummary } from "./features/projects/projectSummary";
 // import { renderMemberList } from "./features/members/memberList";
-// import { renderTaskBoard } from "./features/tasks/taskBoard";
+import { renderTaskBoard } from "./features/tasks/taskBoard";
 
 function initApp(): void {
 	// Läser vilken sida som är öppen från <body data-page="...">
@@ -32,7 +32,7 @@ function initApp(): void {
 
 		// Skickar id vidare så båda vyerna hämtar rätt projekt
 		// renderProjectSummary(projectId);
-		// renderTaskBoard(projectId);
+		renderTaskBoard(projectId);
 	}
 }
 
