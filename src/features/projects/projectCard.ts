@@ -1,6 +1,5 @@
 import { Project } from "../../models/Project";
 
-// Bygger ett kort för ett projekt och skickar tillbaka det, byggs ut i projectList
 export function createProjectCard(project: Project): HTMLElement {
 	const mainDiv = document.createElement("div");
 	mainDiv.className = "col-sm-6";
