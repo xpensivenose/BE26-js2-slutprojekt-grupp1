@@ -1,6 +1,6 @@
 import { renderNotice, clearNotice } from "../../components/notice";
 
-import { getTasksByProject, deleteTask } from "../../services/taskService";
+import { getTasksByProject, deleteTask, updateTask } from "../../services/taskService";
 import { createTaskCard } from "./taskCard";
 import { handleEditTask } from "./editTaskForm";
 import type { Task } from "../../models/Task";
@@ -42,6 +42,10 @@ function handleTaskBoardClick(event: MouseEvent): void {
 
 		handleEditTask(task);
 	}
+
+	if (button.dataset.action === "complete") {
+		handleCompleteTask(taskId);
+	}
 }
 
 // Raderar en uppgift och uppdaterar boarden
@@ -57,6 +61,24 @@ async function handleDeleteTask(taskId: string): Promise<void> {
 	} catch (error) {
 		renderNotice("Kunde inte radera uppgiften.", "error");
 		console.error("Kunde inte radera uppgiften.", error);
+	}
+}
+
+// Slutför en uppgift och uppdaterar boarden
+async function handleCompleteTask(taskId: string): Promise<void> {
+	const taskUpdates: Partial<TaskData> = {
+		status: "done",
+		completed: new Date().toISOString(),
+	};
+
+	try {
+		await updateTask(taskId, taskUpdates);
+		updateTaskOnBoard(taskId, taskUpdates);
+
+		renderNotice("Uppgiften är slutförd.", "success");
+	} catch (error) {
+		renderNotice("Kunde inte slutföra uppgiften.", "error");
+		console.error("Kunde inte slutföra uppgiften.", error);
 	}
 }
 
@@ -114,6 +136,8 @@ export function updateTaskOnBoard(taskId: string, updates: Partial<TaskData>): v
 
 	if (updates.priority) task.setPriority(updates.priority);
 	if (updates.deadline) task.setDeadline(updates.deadline);
+	if (updates.status) task.setStatus(updates.status);
+	if (updates.completed) task.setCompleted(updates.completed);
 
 	renderTasks();
 }

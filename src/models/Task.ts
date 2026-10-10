@@ -53,6 +53,10 @@ export class Task {
 		return this.status;
 	}
 
+	setStatus(newStatus: TaskStatus) {
+		this.status = newStatus;
+	}
+
 	getPriority(): Priority {
 		return this.priority;
 	}
@@ -71,6 +75,10 @@ export class Task {
 
 	getCompleted(): string | undefined {
 		return this.completed;
+	}
+
+	setCompleted(newCompleted: string) {
+		this.completed = newCompleted;
 	}
 
 	getAssignedMember(): string | undefined {
