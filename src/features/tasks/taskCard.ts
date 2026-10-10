@@ -33,6 +33,7 @@ const priorityClasses: Record<Priority, string> = {
 	high: "bg-danger text-white",
 };
 
+// Skapar badges för kategori och prioritet
 function createBadges(task: Task): HTMLDivElement {
 	const badges = document.createElement("div");
 	badges.className = "d-flex gap-2 mb-3";
@@ -53,7 +54,8 @@ function createBadges(task: Task): HTMLDivElement {
 	return badges;
 }
 
-function createActions(task: Task): HTMLDivElement {
+// Skapar tillgängliga action-knappar baserat på uppgiftens status
+function createActionButtons(task: Task): HTMLDivElement {
 	const actions = document.createElement("div");
 	actions.className = "d-flex gap-2 mt-3";
 
@@ -72,6 +74,7 @@ function createActions(task: Task): HTMLDivElement {
 	return actions;
 }
 
+// Bygger ett uppgiftskort med information och tillgängliga actions
 export function createTaskCard(task: Task): HTMLDivElement {
 	const card = document.createElement("div");
 	card.className = "card mb-2";
@@ -91,7 +94,7 @@ export function createTaskCard(task: Task): HTMLDivElement {
 	description.textContent = task.getDescription();
 
 	const badges = createBadges(task);
-	const actions = createActions(task);
+	const actions = createActionButtons(task);
 
 	const created = document.createElement("div");
 	created.className = "small text-body-secondary";

@@ -10,9 +10,9 @@ import { getProjectId } from "../../utils/urls";
 
 import type { Category, Priority, TaskData } from "../../types/types";
 
-import { renderNewTask } from "./taskBoard";
+import { addTaskToBoard } from "./taskBoard";
 
-// Kopplar ihop formuläret för ny uppgift (select, reset och submit)
+// Initierar formuläret och dess händelsehantering
 export function setupAddTaskForm(): void {
 	const modal = document.querySelector<HTMLDivElement>("#add-task-modal");
 	const form = document.querySelector<HTMLFormElement>("#add-task-form");
@@ -26,19 +26,16 @@ export function setupAddTaskForm(): void {
 		return;
 	}
 
-	// Nollställ formuläret och rensa felet när modalen har stängts helt
 	modal.addEventListener("hidden.bs.modal", () => {
 		form.reset();
 		clearFormError(formError);
 	});
 
-	// Fyll i kategorier i select-listan
 	for (const category of CATEGORIES) {
 		const option = createSelectOption(CATEGORY_LABELS[category], category);
 		categorySelect.append(option);
 	}
 
-	// Fyll i prioritet i select-listan
 	for (const priority of PRIORITIES) {
 		const option = createSelectOption(PRIORITY_LABELS[priority], priority);
 		prioritySelect.append(option);
@@ -47,7 +44,7 @@ export function setupAddTaskForm(): void {
 	form.addEventListener("submit", handleAddTaskSubmit);
 }
 
-// Hanterar formulärets submit-händelse
+// Hanterar validering och skapande av en ny uppgift vid submit
 async function handleAddTaskSubmit(event: SubmitEvent): Promise<void> {
 	event.preventDefault();
 
@@ -65,13 +62,11 @@ async function handleAddTaskSubmit(event: SubmitEvent): Promise<void> {
 
 	const today = new Date().toLocaleDateString("sv-SE");
 
-	// Förhindra att fält innehåller enbart blanksteg
 	if (!title || !description) {
 		renderFormError(formError, "Titel och beskrivning får inte vara tomma.");
 		return;
 	}
 
-	// Förhindra att en uppgift tilldelas ett datum som har passerat
 	if (!deadline || deadline < today) {
 		renderFormError(formError, "Deadline får inte vara tidigare än idag.");
 		return;
@@ -97,7 +92,7 @@ async function handleAddTaskSubmit(event: SubmitEvent): Promise<void> {
 
 	try {
 		const newTask = await addTask(taskData);
-		renderNewTask(newTask);
+		addTaskToBoard(newTask);
 
 		renderNotice("Uppgiften har lagts till.", "success");
 

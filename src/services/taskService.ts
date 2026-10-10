@@ -49,3 +49,17 @@ export async function deleteTask(taskId: string): Promise<void> {
 
 	await request(url, options);
 }
+
+export async function updateTask(taskId: string, updates: Partial<TaskData>): Promise<void> {
+	const url = `${BASE_URL}/tasks/${taskId}.json`;
+
+	const options: RequestInit = {
+		method: "PATCH",
+		body: JSON.stringify(updates),
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	await request<Partial<TaskData>>(url, options);
+}
