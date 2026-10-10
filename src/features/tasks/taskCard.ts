@@ -64,6 +64,7 @@ function createActions(task: Task): HTMLDivElement {
 		const button = document.createElement("button");
 		button.className = `btn btn-sm ${actionClasses[action]}`;
 		button.textContent = actionLabels[action];
+		button.dataset.action = action;
 
 		actions.append(button);
 	}

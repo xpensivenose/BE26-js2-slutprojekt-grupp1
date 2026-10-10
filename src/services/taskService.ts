@@ -39,3 +39,13 @@ export async function addTask(taskData: TaskData): Promise<Task> {
 
 	return new Task(taskId, taskData);
 }
+
+export async function deleteTask(taskId: string): Promise<void> {
+	const url = `${BASE_URL}/tasks/${taskId}.json`;
+
+	const options: RequestInit = {
+		method: "DELETE",
+	};
+
+	await request(url, options);
+}
