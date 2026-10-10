@@ -9,6 +9,7 @@ import { renderMemberList } from "./features/members/memberList";
 
 import { setupAddTaskForm } from "./features/tasks/addTaskForm";
 import { renderTaskBoard } from "./features/tasks/taskBoard";
+import { createProjectForm } from "./features/projects/projectForm";
 
 function initApp(): void {
 	const page = document.body.dataset.page;
@@ -17,6 +18,7 @@ function initApp(): void {
 	if (page === "index") {
 		renderProjectList();
 		renderMemberList();
+		createProjectForm();
 	}
 
 	// Projektvy
