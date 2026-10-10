@@ -2,7 +2,8 @@ import { Modal } from "bootstrap";
 
 import { CATEGORIES, PRIORITIES, PRIORITY_LABELS, CATEGORY_LABELS } from "../../constants";
 
-import { renderNotice, clearNotice } from "../../components/notice";
+import { renderNotice } from "../../components/notice";
+import { renderFormError, clearFormError } from "../../components/formError";
 import { addTask } from "../../services/taskService";
 import { createSelectOption } from "../../utils/dom";
 import { getProjectId } from "../../utils/urls";
@@ -15,18 +16,20 @@ import { renderNewTask } from "./taskBoard";
 export function setupAddTaskForm(): void {
 	const modal = document.querySelector<HTMLDivElement>("#add-task-modal");
 	const form = document.querySelector<HTMLFormElement>("#add-task-form");
+	const formError = document.querySelector<HTMLParagraphElement>("#form-error");
 
 	const categorySelect = document.querySelector<HTMLSelectElement>("#add-task-category");
 	const prioritySelect = document.querySelector<HTMLSelectElement>("#add-task-priority");
 
-	if (!modal || !form || !categorySelect || !prioritySelect) {
+	if (!modal || !form || !formError || !categorySelect || !prioritySelect) {
 		console.error("setupAddTaskForm: saknar element i HTML");
 		return;
 	}
 
-	// Nollställ formuläret när modalen har stängts helt
+	// Nollställ formuläret och rensa felet när modalen har stängts helt
 	modal.addEventListener("hidden.bs.modal", () => {
 		form.reset();
+		clearFormError(formError);
 	});
 
 	// Fyll i kategorier i select-listan
@@ -50,7 +53,9 @@ async function handleAddTaskSubmit(event: SubmitEvent): Promise<void> {
 
 	const form = event.currentTarget as HTMLFormElement;
 	const formData = new FormData(form);
-	const formNotice = form.querySelector("#form-notice") as HTMLDivElement;
+	const formError = form.querySelector("#form-error") as HTMLParagraphElement;
+
+	clearFormError(formError);
 
 	const title = (formData.get("title") as string).trim();
 	const description = (formData.get("description") as string).trim();
@@ -62,13 +67,13 @@ async function handleAddTaskSubmit(event: SubmitEvent): Promise<void> {
 
 	// Förhindra att fält innehåller enbart blanksteg
 	if (!title || !description) {
-		renderNotice("Titel och beskrivning får inte vara tomma.", "error", formNotice);
+		renderFormError(formError, "Titel och beskrivning får inte vara tomma.");
 		return;
 	}
 
 	// Förhindra att en uppgift tilldelas ett datum som har passerat
 	if (!deadline || deadline < today) {
-		renderNotice("Deadline får inte vara tidigare än idag.", "error", formNotice);
+		renderFormError(formError, "Deadline får inte vara tidigare än idag.");
 		return;
 	}
 
@@ -95,11 +100,10 @@ async function handleAddTaskSubmit(event: SubmitEvent): Promise<void> {
 		renderNewTask(newTask);
 
 		renderNotice("Uppgiften har lagts till.", "success");
-		clearNotice(formNotice);
 
 		Modal.getOrCreateInstance("#add-task-modal").hide();
 	} catch (error) {
-		renderNotice("Kunde inte skapa uppgiften.", "error");
+		renderFormError(formError, "Kunde inte skapa uppgiften.");
 		console.error("Kunde inte skapa uppgiften:", error);
 	}
 }
