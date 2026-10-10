@@ -2,13 +2,15 @@ import { renderNotice, clearNotice } from "../../components/notice";
 
 import { getTasksByProject, deleteTask } from "../../services/taskService";
 import { createTaskCard } from "./taskCard";
+import { handleEditTask } from "./editTaskForm";
 import type { Task } from "../../models/Task";
 
 import { clearElements } from "../../utils/dom";
+import type { TaskData } from "../../types/types";
 
 let tasks: Task[] = [];
 
-// Kopplar en lyssnare till boarden för knapparna på korten
+// Kopplar klickhantering till boarden
 export function setupTaskBoard(): void {
 	const taskBoard = document.querySelector<HTMLDivElement>("#task-board");
 
@@ -20,7 +22,7 @@ export function setupTaskBoard(): void {
 	taskBoard.addEventListener("click", handleTaskBoardClick);
 }
 
-// Hanterar klick på knapparna på uppgiftskort
+// Hanterar actions från uppgiftskorten
 function handleTaskBoardClick(event: MouseEvent): void {
 	const button = (event.target as HTMLElement).closest<HTMLButtonElement>("button[data-action]");
 	const card = button?.closest<HTMLElement>("[data-task-id]");
@@ -32,9 +34,17 @@ function handleTaskBoardClick(event: MouseEvent): void {
 	if (button.dataset.action === "delete") {
 		handleDeleteTask(taskId);
 	}
+
+	if (button.dataset.action === "edit") {
+		const task = tasks.find((task) => task.getId() === taskId);
+
+		if (!task) return;
+
+		handleEditTask(task);
+	}
 }
 
-//
+// Raderar en uppgift och uppdaterar boarden
 async function handleDeleteTask(taskId: string): Promise<void> {
 	try {
 		await deleteTask(taskId);
@@ -42,6 +52,7 @@ async function handleDeleteTask(taskId: string): Promise<void> {
 		tasks = tasks.filter((task) => task.getId() !== taskId);
 		renderTasks();
 
+		clearNotice();
 		renderNotice("Uppgiften har tagits bort.", "success");
 	} catch (error) {
 		renderNotice("Kunde inte radera uppgiften.", "error");
@@ -49,6 +60,20 @@ async function handleDeleteTask(taskId: string): Promise<void> {
 	}
 }
 
+// Hämtar projektets uppgifter och visar boarden
+export async function renderTaskBoard(projectId: string): Promise<void> {
+	try {
+		tasks = await getTasksByProject(projectId);
+
+		renderTasks();
+		clearNotice();
+	} catch (error) {
+		renderNotice("Det gick inte att hämta uppgifterna. Försök igen senare.", "error");
+		console.error("Kunde inte hämta uppgifterna:", error);
+	}
+}
+
+// Renderar uppgifterna i respektive statuskolumn
 function renderTasks(): void {
 	const newColumn = document.querySelector<HTMLDivElement>("#column-new");
 	const ongoingColumn = document.querySelector<HTMLDivElement>("#column-ongoing");
@@ -75,25 +100,20 @@ function renderTasks(): void {
 	}
 }
 
-export async function renderTaskBoard(projectId: string): Promise<void> {
-	try {
-		tasks = await getTasksByProject(projectId);
-
-		renderTasks();
-
-		if (tasks.length === 0) {
-			renderNotice("Projektet innehåller inga uppgifter ännu.", "error");
-			return;
-		}
-
-		clearNotice();
-	} catch (error) {
-		renderNotice("Det gick inte att hämta uppgifterna. Försök igen senare.", "error");
-		console.error("Kunde inte hämta uppgifterna:", error);
-	}
+// Lägger till en uppgift i boardens local state
+export function addTaskToBoard(task: Task): void {
+	tasks.push(task);
+	renderTasks();
 }
 
-export function renderNewTask(task: Task): void {
-	tasks.push(task);
+// Uppdaterar en befintlig uppgift i boardens local state
+export function updateTaskOnBoard(taskId: string, updates: Partial<TaskData>): void {
+	const task = tasks.find((task) => task.getId() === taskId);
+
+	if (!task) return;
+
+	if (updates.priority) task.setPriority(updates.priority);
+	if (updates.deadline) task.setDeadline(updates.deadline);
+
 	renderTasks();
 }

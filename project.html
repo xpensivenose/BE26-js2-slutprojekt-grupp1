@@ -121,6 +121,42 @@
 		</div>
 	</div>
 
+	<div class="modal fade" id="edit-task-modal" tabindex="-1" aria-labelledby="add-task-modal-title" aria-hidden="true">
+		<div class="modal-dialog">
+			<form class="modal-content" id="edit-task-form">
+
+				<div class="modal-header">
+					<h2 class="modal-title fs-5" id="add-task-modal-title">Redigera uppgift</h2>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Stäng"></button>
+				</div>
+
+				<div class="modal-body">
+					<input type="hidden" id="edit-task-id" name="id">
+
+					<div class="mb-3">
+						<label for="edit-task-priority" class="form-label small">Prioritet</label>
+						<select class="form-select" id="edit-task-priority" name="priority">
+							<option value="" selected disabled>Välj prioritet...</option>
+						</select>
+					</div>
+
+					<div class="mb-3">
+						<label for="edit-task-deadline" class="form-label small">Deadline</label>
+						<input type="date" class="form-control" id="edit-task-deadline" name="deadline">
+					</div>
+
+					<p id="form-error" class="small text-danger mb-0 d-none" role="alert"></p>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Avbryt</button>
+					<button type="submit" id="edit-task-submit" class="btn btn-primary">Spara ändringar</button>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
 	<script type="module" src="/src/main.ts"></script>
 </body>
 

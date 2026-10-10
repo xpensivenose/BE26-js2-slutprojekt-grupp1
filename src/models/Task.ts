@@ -57,8 +57,16 @@ export class Task {
 		return this.priority;
 	}
 
+	setPriority(newPriority: Priority) {
+		this.priority = newPriority;
+	}
+
 	getDeadline(): string {
 		return this.deadline;
+	}
+
+	setDeadline(newDeadline: string) {
+		this.deadline = newDeadline;
 	}
 
 	getCompleted(): string | undefined {

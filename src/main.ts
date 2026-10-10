@@ -8,6 +8,7 @@ import { renderProjectSummary } from "./features/projects/projectSummary";
 import { renderMemberList } from "./features/members/memberList";
 
 import { setupAddTaskForm } from "./features/tasks/addTaskForm";
+import { setupEditTaskForm } from "./features/tasks/editTaskForm";
 import { setupTaskBoard } from "./features/tasks/taskBoard";
 import { renderTaskBoard } from "./features/tasks/taskBoard";
 import { createProjectForm } from "./features/projects/projectForm";
@@ -33,6 +34,7 @@ function initApp(): void {
 
 		setupTaskBoard();
 		setupAddTaskForm();
+		setupEditTaskForm();
 
 		renderProjectSummary(projectId);
 		renderTaskBoard(projectId);
