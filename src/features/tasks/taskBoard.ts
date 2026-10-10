@@ -1,17 +1,14 @@
+import { renderNotice, clearNotice } from "../../components/notice";
+
 import { getTasksByProject } from "../../services/taskService";
 import { createTaskCard } from "./taskCard";
+import type { Task } from "../../models/Task";
 
-/**
- * Helper functions (flytta till /utils)
- */
+import { clearElements } from "../../utils/dom";
 
-export function clearElements(elements: HTMLElement[]): void {
-	for (const element of elements) {
-		element.replaceChildren();
-	}
-}
+let tasks: Task[] = [];
 
-export async function renderTaskBoard(projectId: string): Promise<void> {
+function renderTasks(): void {
 	const newColumn = document.querySelector<HTMLDivElement>("#column-new");
 	const ongoingColumn = document.querySelector<HTMLDivElement>("#column-ongoing");
 	const doneColumn = document.querySelector<HTMLDivElement>("#column-done");
@@ -27,24 +24,35 @@ export async function renderTaskBoard(projectId: string): Promise<void> {
 		done: doneColumn,
 	};
 
-	try {
-		const tasks = await getTasksByProject(projectId);
+	clearElements([newColumn, ongoingColumn, doneColumn]);
 
-		clearElements([newColumn, ongoingColumn, doneColumn]);
+	for (const task of tasks) {
+		const card = createTaskCard(task);
+		const column = columns[task.getStatus()];
+
+		column.append(card);
+	}
+}
+
+export async function renderTaskBoard(projectId: string): Promise<void> {
+	try {
+		tasks = await getTasksByProject(projectId);
+
+		renderTasks();
 
 		if (tasks.length === 0) {
-			// TODO: Visa "Inga uppgifter har lagts till i projektet ännu."
+			renderNotice("Projektet innehåller inga uppgifter ännu.", "error");
 			return;
 		}
 
-		for (const task of tasks) {
-			const card = createTaskCard(task);
-			const column = columns[task.getStatus()];
-
-			column.append(card);
-		}
+		clearNotice();
 	} catch (error) {
-		// TODO: Visa "Det gick inte att hämta uppgifterna. Försök igen senare."
+		renderNotice("Det gick inte att hämta uppgifterna. Försök igen senare.", "error");
 		console.error("Kunde inte hämta uppgifterna:", error);
 	}
+}
+
+export function renderNewTask(task: Task): void {
+	tasks.push(task);
+	renderTasks();
 }
