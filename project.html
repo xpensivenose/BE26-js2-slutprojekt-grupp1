@@ -11,7 +11,7 @@
 </head>
 
 <body data-page="project">
-	<div id="notice" class="alert position-fixed bottom-0 start-50 translate-middle-x mb-3 alert-primary d-none" role="status"></div>
+	<div id="notice" class="alert position-fixed bottom-0 start-50 translate-middle-x mb-3 d-none" role="status"></div>
 
 	<header class="bg-white border-bottom py-3">
 		<div class="container">
@@ -48,21 +48,21 @@
 		<div class="row g-3">
 			<section class="col-md-4">
 				<div class="bg-body-secondary rounded p-3">
-					<h2 class="h6">Ny (<span id="count-new">1</span>)</h2>
+					<h2 class="h6">Ny (<span id="count-new">0</span>)</h2>
 					<div id="column-new"></div>
 				</div>
 			</section>
 
 			<section class="col-md-4">
 				<div class="bg-body-secondary rounded p-3">
-					<h2 class="h6">Pågående (<span id="count-ongoing">1</span>)</h2>
+					<h2 class="h6">Pågående (<span id="count-ongoing">0</span>)</h2>
 					<div id="column-ongoing"></div>
 				</div>
 			</section>
 
 			<section class="col-md-4">
 				<div class="bg-body-secondary rounded p-3">
-					<h2 class="h6">Slutförd (<span id="count-done">1</span>)</h2>
+					<h2 class="h6">Slutförd (<span id="count-done">0</span>)</h2>
 					<div id="column-done"></div>
 				</div>
 			</section>
@@ -79,37 +79,37 @@
 				</div>
 
 				<div class="modal-body">
+					<p>Fält markerade med * är obligatoriska.</p>
 					<div class="mb-3">
-						<label for="add-task-title" class="form-label small">Titel:</label>
+						<label for="add-task-title" class="form-label small">Titel *</label>
 						<input type="text" class="form-control" id="add-task-title" name="title" required>
 					</div>
 
 					<div class="mb-3">
-						<label for="add-task-description" class="form-label small">Beskrivning:</label>
+						<label for="add-task-description" class="form-label small">Beskrivning *</label>
 						<textarea class="form-control" id="add-task-description" name="description" required></textarea>
 					</div>
 
 					<div class="mb-3">
-						<label for="add-task-category" class="form-label small">Kategori:</label>
+						<label for="add-task-category" class="form-label small">Kategori *</label>
 						<select class="form-select" id="add-task-category" name="category" required>
 							<option value="" selected disabled>Välj kategori...</option>
 						</select>
 					</div>
 
 					<div class="mb-3">
-						<label for="add-task-priority" class="form-label small">Prioritet:</label>
+						<label for="add-task-priority" class="form-label small">Prioritet *</label>
 						<select class="form-select" id="add-task-priority" name="priority" required>
 							<option value="" selected disabled>Välj prioritet...</option>
 						</select>
 					</div>
 
 					<div class="mb-3">
-						<label for="add-task-deadline" class="form-label small">Deadline:</label>
+						<label for="add-task-deadline" class="form-label small">Deadline *</label>
 						<input type="date" class="form-control" id="add-task-deadline" name="deadline" required>
 					</div>
 
-					<div id="form-notice" class="alert small alert-primary d-none" role="alert"></div>
-
+					<p id="form-error" class="small text-danger mb-0 d-none" role="alert"></p>
 				</div>
 
 				<div class="modal-footer">
