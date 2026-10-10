@@ -1,12 +1,53 @@
 import { renderNotice, clearNotice } from "../../components/notice";
 
-import { getTasksByProject } from "../../services/taskService";
+import { getTasksByProject, deleteTask } from "../../services/taskService";
 import { createTaskCard } from "./taskCard";
 import type { Task } from "../../models/Task";
 
 import { clearElements } from "../../utils/dom";
 
 let tasks: Task[] = [];
+
+// Kopplar en lyssnare till boarden för knapparna på korten
+export function setupTaskBoard(): void {
+	const taskBoard = document.querySelector<HTMLDivElement>("#task-board");
+
+	if (!taskBoard) {
+		console.error("setupTaskBoard: saknar #task-board i HMTL");
+		return;
+	}
+
+	taskBoard.addEventListener("click", handleTaskBoardClick);
+}
+
+// Hanterar klick på knapparna på uppgiftskort
+function handleTaskBoardClick(event: MouseEvent): void {
+	const button = (event.target as HTMLElement).closest<HTMLButtonElement>("button[data-action]");
+	const card = button?.closest<HTMLElement>("[data-task-id]");
+
+	if (!button || !card) return;
+
+	const taskId = card.dataset.taskId as string;
+
+	if (button.dataset.action === "delete") {
+		handleDeleteTask(taskId);
+	}
+}
+
+//
+async function handleDeleteTask(taskId: string): Promise<void> {
+	try {
+		await deleteTask(taskId);
+
+		tasks = tasks.filter((task) => task.getId() !== taskId);
+		renderTasks();
+
+		renderNotice("Uppgiften har tagits bort.", "success");
+	} catch (error) {
+		renderNotice("Kunde inte radera uppgiften.", "error");
+		console.error("Kunde inte radera uppgiften.", error);
+	}
+}
 
 function renderTasks(): void {
 	const newColumn = document.querySelector<HTMLDivElement>("#column-new");
